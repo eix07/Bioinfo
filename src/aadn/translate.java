@@ -5,7 +5,6 @@
  */
 package aadn;
 
-
 import java.util.IllegalFormatException;
 
 /**
@@ -62,11 +61,13 @@ public class translate {
                         toARN = toARN + ADN1.charAt(i);
                     }
                 }
+            }else{
+                throw new IllegalArgumentException("Cadena invalida");                
             }
             return toARN;
 
         } catch (Exception e) {
-            return e + "";
+            return e.getMessage();
         }
     }
 
@@ -81,11 +82,13 @@ public class translate {
                         toADN = toADN + ARN1.charAt(i);
                     }
                 }
+            } else {
+                throw new IllegalArgumentException("Cadena invalida");
             }
             return toADN;
 
-        } catch (Exception e) {
-            return e + "";
+        } catch (NullPointerException e) {
+            return e.getMessage();
         }
     }
 }
