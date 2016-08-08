@@ -21,10 +21,12 @@ public class FastQReader extends FilterInputStream {
 
     public int FastQRead() throws IOException {
         char c = (char) super.read();
-        
-        if (c =='@') {
-            throw new IOException("Invalido");
+        while (super.read() != -1) {
+            if (c == '@') {
+
+            }
         }
+
         return ((int) c);
     }
 }
