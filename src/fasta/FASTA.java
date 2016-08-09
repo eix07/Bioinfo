@@ -5,8 +5,11 @@
  */
 package fasta;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *
@@ -19,8 +22,14 @@ public class FASTA {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         // TODO code application logic here
-        FastaReader fr=new FastaReader("src/fasta/Fasta.fa");
-        System.out.println(fr.Read());
+        //FastaReader fr=new FastaReader("src/fasta/Fasta.fa");
+        //System.out.println(fr.Read());
+        
+        InputStream in=new FileInputStream(new File("src/fasta/fastaq.fa"));
+        FastQReader fq=new FastQReader(in);
+        
+        System.out.println(fq.FastQRead());
+                
     }
     
 }
