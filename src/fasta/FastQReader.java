@@ -8,6 +8,7 @@ package fasta;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -21,6 +22,8 @@ public class FastQReader extends FilterInputStream {
 
     public String FastQRead() throws IOException {
         int a = 0;
+        int cont1=0;
+        int cont2=0;
         char c;
         int flag = 0;
         int flag2 = 0;
@@ -37,6 +40,7 @@ public class FastQReader extends FilterInputStream {
                 }
             } else if (c != '+' && flag == 1 && flag2 == 0) {
                 concats = concats + c;
+                cont1++;
                 if (c == '\n') {
                     flag = 0;
                 }
@@ -44,8 +48,10 @@ public class FastQReader extends FilterInputStream {
                 flag2 = 1;
             } else if (flag2 == 1 && a == 1) {
                 int n = c;
-                concats = concats + n+", ";
+                cont2++;
+                concats = concats + n+",";
                 if (c == '\n') {
+                    concats=concats+"\n";
                     flag = 0;
                     a=0;
                     flag2=0;
@@ -55,5 +61,19 @@ public class FastQReader extends FilterInputStream {
             cont--;
         }
         return concats;
+    }
+    
+    public String FQinverse() throws IOException{
+        String a=FastQRead();
+        String z="";
+        StringTokenizer st=new StringTokenizer(a);
+        while (st.hasMoreTokens()) {
+            String x=st.nextToken();
+            if(x.startsWith("A")||x.startsWith("T")||x.startsWith("U")||x.startsWith("C")||x.startsWith("G")){
+                char[]s=x.toCharArray();
+                z=z+String.valueOf(InvertADN.inverse(s))+"\n";
+            }
+        }
+        return z;
     }
 }

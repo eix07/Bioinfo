@@ -25,10 +25,11 @@ public class FASTA {
         //FastaReader fr=new FastaReader("src/fasta/Fasta.fa");
         //System.out.println(fr.Read());
         
-        InputStream in=new FileInputStream(new File("src/fasta/fastaq.fa"));
+        InputStream in=new FileInputStream(new File("src/fasta/test.fq"));
         FastQReader fq=new FastQReader(in);
         
-        System.out.println(fq.FastQRead());
+        //System.out.println(fq.FastQRead());
+        System.out.println(fq.FQinverse());
                 
     }
     
