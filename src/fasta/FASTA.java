@@ -5,11 +5,14 @@
  */
 package fasta;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -24,13 +27,14 @@ public class FASTA {
         // TODO code application logic here
         //FastaReader fr=new FastaReader("src/fasta/Fasta.fa");
         //System.out.println(fr.Read());
+
+        InputStream in = new FileInputStream(new File("src/fasta/test.fq"));
+        FastQReader fq = new FastQReader(in);
         
-        InputStream in=new FileInputStream(new File("src/fasta/test.fq"));
-        FastQReader fq=new FastQReader(in);
+        System.out.println(fq.FastQRead().toString());
         
         //System.out.println(fq.FastQRead());
-        System.out.println(fq.FQinverse());
-                
+        //System.out.println(fq.FQinverse());
     }
-    
+
 }
