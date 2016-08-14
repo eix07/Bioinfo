@@ -5,36 +5,35 @@
  */
 package fasta;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+
 
 /**
  *
  * @author Labing
  */
-public class FASTA {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        // TODO code application logic here
-        //FastaReader fr=new FastaReader("src/fasta/Fasta.fa");
-        //System.out.println(fr.Read());
 
-        InputStream in = new FileInputStream(new File("src/fasta/test.fq"));
-        FastQReader fq = new FastQReader(in);
+        InputStream in = new FileInputStream(new File("src/Files/test.fq"));
+        InputStream in2 = new FileInputStream(new File("src/Files/Fasta.fa"));
+        InputStream in3= new FileInputStream(new File("G:/Bioinformatica/worm.fasta"));
+
+        Fasta f = new FastQReader();
         
-        System.out.println(fq.FastQRead().toString());
-        
-        //System.out.println(fq.FastQRead());
-        //System.out.println(fq.FQinverse());
+        Fasta f1 = new FastaReader();
+        f1.Read(in3);
+        //System.out.println(f1.Print());
+        //f1 = new InvertADN(f1);
+        //System.out.println(f1.Operation());
     }
 
 }
