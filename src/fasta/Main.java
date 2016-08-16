@@ -8,6 +8,7 @@ package fasta;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -23,17 +24,25 @@ public class Main {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        InputStream in = new FileInputStream(new File("src/Files/test.fq"));
-        InputStream in2 = new FileInputStream(new File("src/Files/Fasta.fa"));
-        InputStream in3= new FileInputStream(new File("G:/Bioinformatica/worm.fasta"));
-
-        Fasta f = new FastQReader();
+        FileReader ins=new FileReader("src/Files/test.fq");
+        FileReader ins2=new FileReader("src/Files/Fasta.fa");
         
-        Fasta f1 = new FastaReader();
-        f1.Read(in3);
-        //System.out.println(f1.Print());
-        //f1 = new InvertADN(f1);
-        //System.out.println(f1.Operation());
+        Fasta f = new FastQReader(ins);
+        Fasta f1 = new FastaReader(ins2);
+        
+        f.Read();
+        f=new InvertADN(f);
+        f.operacion();
+        
+        
+        f1.Read();
+        f1=new InvertADN(f1);
+        f1.operacion();
+        
+        
+        
+        
+
     }
 
 }

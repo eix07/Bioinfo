@@ -5,15 +5,17 @@
  */
 package fasta;
 
-
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
  * @author river
  */
-public abstract class Decoradores extends Fasta{
+public abstract class Fasta {
     
-    public Fasta fasta;
-
+    public FileReader n;
+    public abstract void Read()throws IOException;
+    public abstract void operacion()throws IOException;
     
 }

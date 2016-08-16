@@ -5,18 +5,30 @@
  */
 package fasta;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.StringTokenizer;
+import javax.imageio.IIOException;
 
 /**
  *
  * @author Labing
  */
 public class FastQReader extends Fasta {
+    
+    public FileReader in;
 
-    @Override
-    public String[] Read(InputStream in) throws IOException {
+    public FastQReader(FileReader in) {
+        this.in = in;
+    }
+    
+    
+
+    public String[] Reads(InputStream in) throws IOException {
         int a = 0;
         char c;
         int flag = 0;
@@ -56,32 +68,48 @@ public class FastQReader extends Fasta {
         if (concats[1].length() != concats[2].length()) {
             throw new IOException("Cadenas invalidas, diferente longitud \n");
         } else {
-            this.x = concats;
-            return this.x;
+            return null;
         }
     }
 
     @Override
-    public String Operation() {
+    public void Read() throws IOException {
+        BufferedReader br = new BufferedReader(this.in);
+        BufferedWriter bw=new BufferedWriter(new FileWriter("src/files/temp.ss"));
+        String cadena = "";
+        int a = 0;
+        int b = 0;
+        int flag2 = 0;
+        int flag = 0;
+        while ((cadena = br.readLine()) != null) {
+            if (cadena.contains("@") && flag == 0) {
+                flag = 1;
+                System.out.println(cadena.replace("@", ""));
+            } else if (flag == 1 && !cadena.contains("+") && flag2 == 0) {
+                a = a + cadena.length();
+                System.out.println(cadena);
+                bw.write(cadena+"\n");
+            } else if (cadena.startsWith("+") && flag2 == 0 && flag == 1) {
+                flag2=1;
+            } else if (flag2==1){
+                b=b+cadena.length();
+                if(a==b){
+                    System.out.println(cadena);
+                    flag=0;
+                    flag2=0;
+                    a=0;
+                    b=0;
+                }else{
+                    throw new IIOException("Cadenas de calidad y ADN diferentes");
+                }
+            }
+        }
+        bw.close();
+    }
+
+    @Override
+    public void operacion() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String Print() {
-        StringTokenizer st;
-        StringTokenizer st1;
-        StringTokenizer st2;
-        StringTokenizer st3;
-        String aux = this.x[0];
-        String aux1 = this.x[1];
-        String aux2 = this.x[2];
-        st = new StringTokenizer(aux);
-        st1 = new StringTokenizer(aux1);
-        st3 = new StringTokenizer(aux2);
-        while (st.hasMoreTokens()) {
-            result = result + st.nextToken() + "\n" + st1.nextToken() + "\n" + st3.nextToken() + "\n";
-        }
-        return result;
     }
 
 }

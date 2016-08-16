@@ -5,6 +5,8 @@
  */
 package fasta;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -43,17 +45,17 @@ public class InvertADN extends Decoradores{
     }
 
     @Override
-    public String[] Read(InputStream in) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void operacion() throws IOException {
+        FileReader in=new FileReader("src/Files/temp.ss");
+        BufferedReader br=new BufferedReader(in);
+        String cadena="";
+        while((cadena=br.readLine())!=null){
+            System.out.println(this.inverse(cadena));
+        }
     }
 
     @Override
-    public String Operation() {
-        return inverse(this.fasta.x[1]);
-    }
-
-    @Override
-    public String Print() {
+    public void Read() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
