@@ -52,23 +52,14 @@ public class translate {
 
     public static String toARN(String ADN1) throws IllegalFormatException, NullPointerException {
         String toARN = "";
-        try {
-            if (isValidADN(ADN1)) {
-                for (int i = 0; i < ADN1.length(); i++) {
-                    if (ADN1.charAt(i) == 't' || ADN1.charAt(i) == 'T') {
-                        toARN = toARN + "U";
-                    } else {
-                        toARN = toARN + ADN1.charAt(i);
-                    }
-                }
-            }else{
-                throw new IllegalArgumentException("Cadena invalida");                
+        for (int i = 0; i < ADN1.length(); i++) {
+            if (ADN1.charAt(i) == 't' || ADN1.charAt(i) == 'T') {
+                toARN = toARN + "U";
+            } else {
+                toARN = toARN + ADN1.charAt(i);
             }
-            return toARN;
-
-        } catch (Exception e) {
-            return e.getMessage();
         }
+        return toARN;
     }
 
     public static String toADN(String ARN1) throws IllegalFormatException, NullPointerException {
