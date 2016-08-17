@@ -34,7 +34,6 @@ public class Main {
         f=new InvertADN(f);
         f.operacion();
         
-        
         f1.Read();
         f1=new InvertADN(f1);
         f1.operacion();
