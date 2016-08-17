@@ -19,14 +19,12 @@ import javax.imageio.IIOException;
  * @author Labing
  */
 public class FastQReader extends Fasta {
-    
+
     public FileReader in;
 
     public FastQReader(FileReader in) {
         this.in = in;
     }
-    
-    
 
     public String[] Reads(InputStream in) throws IOException {
         int a = 0;
@@ -75,7 +73,7 @@ public class FastQReader extends Fasta {
     @Override
     public void Read() throws IOException {
         BufferedReader br = new BufferedReader(this.in);
-        BufferedWriter bw=new BufferedWriter(new FileWriter("src/files/temp.ss"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/files/temp.ss"));
         String cadena = "";
         int a = 0;
         int b = 0;
@@ -88,23 +86,31 @@ public class FastQReader extends Fasta {
             } else if (flag == 1 && !cadena.contains("+") && flag2 == 0) {
                 a = a + cadena.length();
                 System.out.println(cadena);
-                bw.write(cadena+"\n");
+                bw.write(cadena + "\n");
             } else if (cadena.startsWith("+") && flag2 == 0 && flag == 1) {
-                flag2=1;
-            } else if (flag2==1){
-                b=b+cadena.length();
-                if(a==b){
-                    System.out.println(cadena);
-                    flag=0;
-                    flag2=0;
-                    a=0;
-                    b=0;
-                }else{
+                flag2 = 1;
+            } else if (flag2 == 1) {
+                b = b + cadena.length();
+                if (a == b) {
+                    System.out.println(CalidadInt(cadena));
+                    flag = 0;
+                    flag2 = 0;
+                    a = 0;
+                    b = 0;
+                } else {
                     throw new IIOException("Cadenas de calidad y ADN diferentes");
                 }
             }
         }
         bw.close();
+    }
+
+    public String CalidadInt(String a) {
+        String b = "";
+        for (int i = 0; i < a.length(); i++) {
+            b = b+(int)a.charAt(i)+",";
+        }
+        return b;
     }
 
     @Override

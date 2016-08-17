@@ -49,7 +49,7 @@ public class FastaReader extends Fasta {
     public void operacion() throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+   
     public FileReader getN() {
         return n;
     }

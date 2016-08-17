@@ -38,10 +38,6 @@ public class Main {
         f1.Read();
         f1=new InvertADN(f1);
         f1.operacion();
-        
-        
-        
-        
 
     }
 
