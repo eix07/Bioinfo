@@ -1,6 +1,6 @@
 
 import os
-s=open(os.getcwd()+"\chivo.txt","r")
+s=open(os.getcwd()+"\subs.txt","r")
 p=open(os.getcwd()+"\esult.txt","w+")
 w=0
 sub1=""
