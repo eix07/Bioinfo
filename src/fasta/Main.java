@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 
 /**
@@ -23,20 +26,20 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-
-        FileReader ins=new FileReader("src/Files/test.fq");
-        FileReader ins2=new FileReader("src/Files/Fasta.fa");
         
-        Fasta f = new FastQReader(ins);
-        Fasta f1 = new FastaReader(ins2);
+        Reader r = new FileReader("src/Files/Fasta.fa");
+        FastaReader lector = new FastaReader(r);
+        lector.leerFasta();
         
-        f.Read();
-        f=new InvertADN(f);
-        f.operacion();
+        InputStream in=new FileInputStream(new File("src/Files/test.fq"));
+        FastQReader fq=new FastQReader(in);
+        String[] a=fq.Reads();
+        System.out.println(a[0]);
+        System.out.println(a[1]);
+        System.out.println(a[2]);
         
-        f1.Read();
-        f1=new InvertADN(f1);
-        f1.operacion();
+        
+      
 
     }
 

@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.StringTokenizer;
@@ -18,15 +19,18 @@ import javax.imageio.IIOException;
  *
  * @author Labing
  */
-public class FastQReader extends Fasta {
+public class FastQReader extends FilterInputStream{
 
-    public FileReader in;
-
-    public FastQReader(FileReader in) {
-        this.in = in;
+    public FastQReader(InputStream in){
+        super(in);
     }
 
-    public String[] Reads(InputStream in) throws IOException {
+    public int read() throws IOException {
+        char c = (char) super.read();
+        return ((int)c);
+    }
+    
+    public String[] Reads() throws IOException {
         int a = 0;
         char c;
         int flag = 0;
@@ -37,7 +41,7 @@ public class FastQReader extends Fasta {
         concats[2] = "";
         int cont = in.available();
         while (cont >= 1) {
-            c = (char) in.read();
+            c = (char) read();
             if (a == 0 && c == '@') {
                 a = 1;
             } else if (flag == 0 && c != '+') {
@@ -66,13 +70,13 @@ public class FastQReader extends Fasta {
         if (concats[1].length() != concats[2].length()) {
             throw new IOException("Cadenas invalidas, diferente longitud \n");
         } else {
-            return null;
+            return concats;
         }
     }
 
-    @Override
-    public void Read() throws IOException {
-        BufferedReader br = new BufferedReader(this.in);
+
+    /*public void Read(FileReader in) throws IOException {
+        BufferedReader br = new BufferedReader(in);
         BufferedWriter bw = new BufferedWriter(new FileWriter("src/files/temp.ss"));
         String cadena = "";
         int a = 0;
@@ -111,11 +115,6 @@ public class FastQReader extends Fasta {
             b = b+(int)a.charAt(i)+",";
         }
         return b;
-    }
-
-    @Override
-    public void operacion() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
 
 }

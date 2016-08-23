@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.StringTokenizer;
 import jdk.jfr.events.FileWriteEvent;
 
@@ -21,20 +22,31 @@ import jdk.jfr.events.FileWriteEvent;
  *
  * @author Labing
  */
-public class FastaReader extends Fasta {
+public class FastaReader extends BufferedReader {
     
-    public FileReader n;
+    
 
-    public FastaReader(FileReader n) {
-        this.n = n;
+    public FastaReader(Reader in) {
+        super(in);
     }
 
+    public void close() throws IOException{
+        super.close();
+    }
+    
     @Override
-    public void Read() throws IOException {
+    public String readLine() throws IOException{
+        String ret= super.readLine();
+             
+        return ret;
+    
+    }
+    
+    public void leerFasta() throws IOException{
         BufferedWriter bw=new BufferedWriter(new FileWriter("src/files/temp.ss"));
-        BufferedReader br=new BufferedReader(this.n);
+        
         String cadena="";
-        while((cadena=br.readLine())!=null){
+        while((cadena=readLine())!=null){
             if(cadena.contains(">")){
                 System.out.println(cadena.replace(">", ""));
             }else{
@@ -42,20 +54,9 @@ public class FastaReader extends Fasta {
                 System.out.println(cadena);
             }
         }
-        bw.close();
+        close();
+    
     }
-
-    @Override
-    public void operacion() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
-    public FileReader getN() {
-        return n;
-    }
-
-    public void setN(FileReader n) {
-        this.n = n;
-    }
-   
-}
+    
+    
+}   
