@@ -33,13 +33,7 @@ public class Main {
         
         InputStream in=new FileInputStream(new File("src/Files/test.fq"));
         FastQReader fq=new FastQReader(in);
-        String[] a=fq.Reads();
-        System.out.println(a[0]);
-        System.out.println(a[1]);
-        System.out.println(a[2]);
-        
-        
-      
+        fq.Reads();    
 
     }
 

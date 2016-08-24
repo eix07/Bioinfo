@@ -14,11 +14,8 @@ import java.io.InputStream;
  *
  * @author Labing
  */
-public class InvertADN extends Decoradores{
+public class InvertADN{
     
-    public InvertADN(Fasta f){
-        this.fasta=f;
-    }
 
     private static char inv(char c) {
         char aux=c;
@@ -44,7 +41,6 @@ public class InvertADN extends Decoradores{
         return String.copyValueOf(r);
     }
 
-    @Override
     public void operacion() throws IOException {
         FileReader in=new FileReader("src/Files/temp.ss");
         BufferedReader br=new BufferedReader(in);
@@ -54,10 +50,5 @@ public class InvertADN extends Decoradores{
         }
     }
 
-    @Override
-    public void Read() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
 }

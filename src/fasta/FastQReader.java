@@ -30,7 +30,7 @@ public class FastQReader extends FilterInputStream{
         return ((int)c);
     }
     
-    public String[] Reads() throws IOException {
+    public void Reads() throws IOException {
         int a = 0;
         char c;
         int flag = 0;
@@ -47,11 +47,15 @@ public class FastQReader extends FilterInputStream{
             } else if (flag == 0 && c != '+') {
                 concats[0] = concats[0] + c;
                 if (c == '\n') {
+                    System.out.println(concats[0]);
+                    concats[0]="";                    
                     flag = 1;
                 }
             } else if (c != '+' && flag == 1 && flag2 == 0) {
                 concats[1] = concats[1] + c;
                 if (c == '\n') {
+                    System.out.println(concats[1]);
+                    concats[1]="";
                     flag = 0;
                 }
             } else if (c == '+' && flag == 0) {
@@ -59,6 +63,8 @@ public class FastQReader extends FilterInputStream{
             } else if (flag2 == 1 && a == 1) {
                 concats[2] = concats[2] + c;
                 if (c == '\n') {
+                    System.out.println(CalidadInt(concats[2]));
+                    concats[2]="";
                     flag = 0;
                     a = 0;
                     flag2 = 0;
@@ -70,7 +76,7 @@ public class FastQReader extends FilterInputStream{
         if (concats[1].length() != concats[2].length()) {
             throw new IOException("Cadenas invalidas, diferente longitud \n");
         } else {
-            return concats;
+            System.out.println("(Y)");
         }
     }
 
@@ -107,7 +113,7 @@ public class FastQReader extends FilterInputStream{
             }
         }
         bw.close();
-    }
+    }*/
 
     public String CalidadInt(String a) {
         String b = "";
@@ -115,6 +121,6 @@ public class FastQReader extends FilterInputStream{
             b = b+(int)a.charAt(i)+",";
         }
         return b;
-    }*/
+    }
 
 }
