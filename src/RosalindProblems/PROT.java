@@ -48,4 +48,15 @@ public class PROT {
         System.out.println(result);
     }
 
+    public static HashMap map() throws FileNotFoundException, IOException {
+        HashMap<String, String> map = new HashMap<>();
+        BufferedReader br = new BufferedReader(new FileReader("src/RosalindFiles/rnaCodon.txt"));
+        String cadena = "";
+        while ((cadena = br.readLine()) != null) {
+            String[] sx = cadena.split(" ");
+            map.put(sx[0], sx[1]);
+        }
+        return map;
+    }
+
 }

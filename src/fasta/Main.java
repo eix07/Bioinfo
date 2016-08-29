@@ -34,6 +34,9 @@ public class Main {
         InputStream in=new FileInputStream(new File("src/Files/test.fq"));
         FastQReader fq=new FastQReader(in);
         fq.Reads();    
+        
+        File f=new File("src/Files/Fasta.fa");
+        lector.leerFastaBytes(f);
 
     }
 

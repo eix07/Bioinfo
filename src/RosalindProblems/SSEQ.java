@@ -3,58 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fasta;
+package RosalindProblems;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import fasta.FastaReaderBytes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
+import java.util.StringTokenizer;
 
 /**
  *
- * @author Labing
+ * @author river
  */
+public class SSEQ {
 
+    public static void SSEQ(String dir) throws FileNotFoundException, IOException {
 
-public class FastaReader extends BufferedReader {
-
-    public FastaReader(Reader in) {
-        super(in);
-    }
-
-    public void close() throws IOException {
-        super.close();
-    }
-
-    @Override
-    public String readLine() throws IOException {
-        String ret = super.readLine();
-
-        return ret;
-
-    }
-
-    public void leerFasta() throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter("src/files/temp.ss"));
-
-        String cadena = "";
-        while ((cadena = readLine()) != null) {
-            if (cadena.contains(">")) {
-                System.out.println(cadena.replace(">", ""));
-            } else {
-                bw.write(cadena + "\n");
-                System.out.println(cadena);
+        File f=new File(dir);
+        String[] fasta= leerFastaBytes(f);
+        StringTokenizer st=new StringTokenizer(fasta[1]);
+        String cadena1=st.nextToken();
+        String cadena2=st.nextToken();
+        
+        String result="";
+        int j=0;
+        
+        for (int i = 0; i < cadena2.length(); i++) {
+            while(true){
+                if(cadena1.charAt(j)==cadena2.charAt(i)){
+                    result=result+(j+1)+" ";
+                    j++;
+                    break;
+                }
+                j++;
             }
         }
-        close();
-
+        System.out.println(result);
+        
     }
 
-    public String[] leerFastaBytes(File f) throws FileNotFoundException, IOException {
+    private static String[] leerFastaBytes(File f) throws FileNotFoundException, IOException {
 
         FileInputStream in = new FileInputStream(f);
         FastaReaderBytes fb = new FastaReaderBytes(in);
