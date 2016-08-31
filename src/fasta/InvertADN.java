@@ -30,7 +30,8 @@ public class InvertADN{
         return aux;
     }
     
-    public String inverse(String ADNN){
+    public static String inverse(String ADNN){
+        
         int j=0;
         char[]ADN=ADNN.toCharArray();
         char[] r=new char[ADN.length];
@@ -38,17 +39,9 @@ public class InvertADN{
             r[j]=inv(ADN[i]);
             j++;
         }
-        return String.copyValueOf(r);
+        return String.valueOf(r);
     }
-
-    public void operacion() throws IOException {
-        FileReader in=new FileReader("src/Files/temp.ss");
-        BufferedReader br=new BufferedReader(in);
-        String cadena="";
-        while((cadena=br.readLine())!=null){
-            System.out.println(this.inverse(cadena));
-        }
-    }
+    
 
     
 }

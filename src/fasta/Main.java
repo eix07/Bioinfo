@@ -29,14 +29,14 @@ public class Main {
         
         Reader r = new FileReader("src/Files/Fasta.fa");
         FastaReader lector = new FastaReader(r);
-        lector.leerFasta();
+        //lector.leerFasta();
         
         InputStream in=new FileInputStream(new File("src/Files/test.fq"));
         FastQReader fq=new FastQReader(in);
-        fq.Reads();    
+        fq.Reads();
         
         File f=new File("src/Files/Fasta.fa");
-        lector.leerFastaBytes(f);
+        //lector.leerFastaBytes(f);
 
     }
 

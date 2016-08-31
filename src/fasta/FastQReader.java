@@ -19,26 +19,28 @@ import javax.imageio.IIOException;
  *
  * @author Labing
  */
-public class FastQReader extends FilterInputStream{
+public class FastQReader extends FilterInputStream {
 
-    public FastQReader(InputStream in){
+    public String[] concats = new String[3];
+
+    public FastQReader(InputStream in) {
         super(in);
+
+        concats[0] = "";
+        concats[1] = "";
+        concats[2] = "";
     }
 
     public int read() throws IOException {
         char c = (char) super.read();
-        return ((int)c);
+        return ((int) c);
     }
-    
+
     public void Reads() throws IOException {
         int a = 0;
         char c;
         int flag = 0;
         int flag2 = 0;
-        String[] concats = new String[3];
-        concats[0] = "";
-        concats[1] = "";
-        concats[2] = "";
         int cont = in.available();
         while (cont >= 1) {
             c = (char) read();
@@ -48,14 +50,14 @@ public class FastQReader extends FilterInputStream{
                 concats[0] = concats[0] + c;
                 if (c == '\n') {
                     System.out.println(concats[0]);
-                    concats[0]="";                    
+                    concats[0] = "";
                     flag = 1;
                 }
             } else if (c != '+' && flag == 1 && flag2 == 0) {
                 concats[1] = concats[1] + c;
                 if (c == '\n') {
                     System.out.println(concats[1]);
-                    concats[1]="";
+                    concats[1] = "";
                     flag = 0;
                 }
             } else if (c == '+' && flag == 0) {
@@ -64,7 +66,7 @@ public class FastQReader extends FilterInputStream{
                 concats[2] = concats[2] + c;
                 if (c == '\n') {
                     System.out.println(CalidadInt(concats[2]));
-                    concats[2]="";
+                    concats[2] = "";
                     flag = 0;
                     a = 0;
                     flag2 = 0;
@@ -79,8 +81,14 @@ public class FastQReader extends FilterInputStream{
             System.out.println("(Y)");
         }
     }
-
-
+    
+    public void Invert() throws IOException{
+        String[] cadenas=this.concats[1].split(" ");
+        for (String cadena : cadenas) {
+ 
+            System.out.println(InvertADN.inverse(cadena));
+        }
+    }
     /*public void Read(FileReader in) throws IOException {
         BufferedReader br = new BufferedReader(in);
         BufferedWriter bw = new BufferedWriter(new FileWriter("src/files/temp.ss"));
@@ -118,7 +126,7 @@ public class FastQReader extends FilterInputStream{
     public String CalidadInt(String a) {
         String b = "";
         for (int i = 0; i < a.length(); i++) {
-            b = b+(int)a.charAt(i)+",";
+            b = b + (int) a.charAt(i) + ",";
         }
         return b;
     }

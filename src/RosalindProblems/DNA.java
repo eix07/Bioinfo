@@ -5,42 +5,52 @@
  */
 package RosalindProblems;
 
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.RawDNAReader;
 import aadn.RawADNReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *
  * @author river
  */
-public class DNA {
-    
-     public static void DNA(String direccion) throws FileNotFoundException, IOException{
-                
-        FileInputStream in=new FileInputStream(new File(direccion));
-        RawADNReader raw=new RawADNReader(in);
-        int a=0;
-        int g=0;
-        int c=0;
-        int t=0;
-        int cont=raw.available();
-        while(cont>=1){
-            char x= (char)raw.read();
-            if(x=='A'){
+public class DNA extends GenericProblem {
+
+
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader = new RawDNAReader();
+        reader.Init(in);
+        return reader;
+    }
+
+    @Override
+    public String Solve(DNAReader origin) {
+        int a = 0;
+        int g = 0;
+        int c = 0;
+        int t = 0;
+        while (origin.CanRead()) {
+            char x = origin.ReadChar();
+            if (x == 'A') {
                 a++;
-            }if(x=='G'){
+            }
+            if (x == 'G') {
                 g++;
-            }if(x=='C'){
+            }
+            if (x == 'C') {
                 c++;
-            }if(x=='T'){
+            }
+            if (x == 'T') {
                 t++;
             }
-            cont--;
         }
-        String result=a+" "+c+" "+g+" "+t+" ";
-        System.out.println(result);
+        return a + " " + c + " " + g + " " + t + " ";
+
     }
-    
+
 }

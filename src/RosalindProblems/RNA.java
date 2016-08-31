@@ -5,26 +5,30 @@
  */
 package RosalindProblems;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.RawDNAReader;
+import java.io.InputStream;
 
 /**
  *
  * @author river
  */
-public class RNA {
-    
-        public static void RNA(String direccion) throws FileNotFoundException, IOException {
-        BufferedReader br=new BufferedReader(new FileReader(direccion));
-        String cadena;
-        String a="";
-        while((cadena=br.readLine())!=null){
-            a=aadn.translate.toARN(cadena);
-        }       
-        System.out.println(a);
+public class RNA extends GenericProblem {
+
+
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader = new RawDNAReader();
+        reader.Init(in);
+        return reader;
     }
-    
-    
+
+    @Override
+    public String Solve(DNAReader Origin) {
+        String cadena=Origin.ReadLine();
+        String a = "";
+            a = aadn.translate.toARN(cadena);
+        return a;
+    }
+
 }

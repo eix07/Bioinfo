@@ -18,9 +18,9 @@ import java.io.Reader;
  *
  * @author Labing
  */
-
-
 public class FastaReader extends BufferedReader {
+
+    String[] fasta = new String[2];
 
     public FastaReader(Reader in) {
         super(in);
@@ -62,7 +62,7 @@ public class FastaReader extends BufferedReader {
         int flag = 0;
         int flag2 = 0;
         int x = fb.available();
-        String[] fasta = new String[2];
+
         fasta[0] = "";
         fasta[1] = "";
         while (x > 0) {
@@ -87,8 +87,8 @@ public class FastaReader extends BufferedReader {
             }
             x--;
         }
-        System.out.println(fasta[0]);
-        System.out.println(fasta[1]);
+
+        System.out.println(fasta[0] + "\n" + fasta[1]);
         return fasta;
     }
 
