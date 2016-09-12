@@ -5,31 +5,30 @@
  */
 package RosalindProblems;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.RawDNAReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 /**
  *
  * @author river
  */
-public class PROT {
+public class PROT extends GenericProblem {
 
-    public static void PROT(String dir) throws FileNotFoundException, IOException {
-        HashMap<String, String> map = new HashMap<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/RosalindFiles/rnaCodon.txt"));
-        String cadena = "";
-        while ((cadena = br.readLine()) != null) {
-            String[] sx = cadena.split(" ");
-            map.put(sx[0], sx[1]);
-        }
-        String result = "";
-        BufferedReader br1 = new BufferedReader(new FileReader(dir));
-        cadena = "";
-        cadena = br1.readLine();
-        //System.out.println(cadena);
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader = new RawDNAReader();
+        reader.Init(in);
+        return reader;
+    }
+
+    @Override
+    public String Solve(DNAReader Origin) throws IOException {
+        HashMap<String,String> map=Origin.HashmapRNAcodon();
+        String cadena=Origin.ReadLine();
+        String result="";
         for (int i = 0; i < cadena.length(); i++) {
             if ((i + 2) == cadena.length()) {
                 break;
@@ -40,23 +39,9 @@ public class PROT {
                 } else {
                     result = result + map.get(temp);
                 }
-
                 i = i + 2;
             }
-
         }
-        System.out.println(result);
+        return result;
     }
-
-    public static HashMap map() throws FileNotFoundException, IOException {
-        HashMap<String, String> map = new HashMap<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/RosalindFiles/rnaCodon.txt"));
-        String cadena = "";
-        while ((cadena = br.readLine()) != null) {
-            String[] sx = cadena.split(" ");
-            map.put(sx[0], sx[1]);
-        }
-        return map;
-    }
-
 }

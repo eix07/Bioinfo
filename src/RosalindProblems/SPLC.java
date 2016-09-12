@@ -5,46 +5,40 @@
  */
 package RosalindProblems;
 
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.FastaDNAReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author river
  */
-public class SPLC {
+public class SPLC extends GenericProblem{
 
-    public static void SPLC(String dir) throws FileNotFoundException, IOException {
-        BufferedReader br = new BufferedReader(new FileReader(dir));
-        String cadena = "";
-        String exonsIntrons = "";
-        String exons = "";
-        int cont = 0;
-        ArrayList<String> introns = new ArrayList<>();
-        while ((cadena = br.readLine()) != null) {
-            if (cadena.contains(">")) {
-                continue;
-            } else {
-                if (cont == 0) {
-                    exonsIntrons = cadena;
-                    cont++;
-                } else {
-                    introns.add(cadena);
-                    cont++;
-                }
-            }
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader=new FastaDNAReader();
+        reader.Init(in);
+        return reader;
+    }
+
+    @Override
+    public String Solve(DNAReader Origin) throws IOException {
+        List<String>cadenas=Origin.ReadAllLines();
+        String exonsIntrons=cadenas.get(1);
+        for (int i = 3; i < cadenas.size(); i++) {
+            exonsIntrons=exonsIntrons.replaceAll(cadenas.get(i),"");
+            i++;
         }
-        for (int i = 0; i < introns.size(); i++) {
-            exonsIntrons = exonsIntrons.replaceAll(introns.get(i), "");
-        }
-        exons = exonsIntrons;
-        String RNAexons=aadn.translate.toARN(exons);
-        HashMap<String, String> map = new HashMap<>();
-        map=PROT.map();
+        String RNAexons=aadn.translate.toARN(exonsIntrons);
+        HashMap<String,String>map=Origin.HashmapRNAcodon();
         String result = "";
         for (int i = 0; i < RNAexons.length(); i++) {
             if ((i + 2) == RNAexons.length()) {
@@ -59,7 +53,6 @@ public class SPLC {
                 i = i + 2;
             }
         }
-        System.out.println(result);
+        return result;
     }
-
 }

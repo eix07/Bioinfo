@@ -7,11 +7,6 @@ package RosalindProblems;
 
 import RosalindProblems.Reader.DNAReader;
 import RosalindProblems.Reader.RawDNAReader;
-import aadn.RawADNReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**

@@ -6,15 +6,16 @@
 package RosalindProblems;
 
 import RosalindProblems.Reader.DNAReader;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
  *
  * @author JuanFelipe
  */
-public abstract class GenericProblem {
+public abstract class GenericProblem{
     
     public abstract DNAReader getReader(InputStream in);
-    public abstract String Solve(DNAReader Origin);
+    public abstract String Solve(DNAReader Origin)throws IOException;
     
 }

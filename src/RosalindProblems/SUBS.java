@@ -5,21 +5,36 @@
  */
 package RosalindProblems;
 
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.RawDNAReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  *
  * @author river
  */
-public class SUBS {
+public class SUBS extends GenericProblem{
     
-    public static void SUBS(String dir) throws FileNotFoundException, IOException{
-        BufferedReader br =new BufferedReader(new FileReader(dir));
-        String cadena1=br.readLine();
-        String cadena2=br.readLine();
+    
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader=new RawDNAReader();
+        reader.Init(in);
+        return reader;
+    }
+
+    @Override
+    public String Solve(DNAReader Origin) throws IOException {
+        List<String>cadenas=Origin.ReadAllLines();
+        String cadena1=cadenas.get(0);
+        String cadena2=cadenas.get(1);
+        System.out.println(cadena1);
+        System.out.println(cadena2);
         int x=0;
         int y=cadena2.length();
         String result="";
@@ -30,7 +45,7 @@ public class SUBS {
             x++;
             y++;
         }
-        System.out.println(result);
+        return result;
     }
     
 }

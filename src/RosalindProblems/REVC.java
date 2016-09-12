@@ -6,26 +6,20 @@
 package RosalindProblems;
 
 
+import RosalindProblems.Reader.DNAReader;
+import RosalindProblems.Reader.RawDNAReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *
  * @author river
  */
-public class REVC {
+public class REVC extends GenericProblem{
     
-        public static void REVC(String direccion) throws FileNotFoundException, IOException{
-        BufferedReader br=new BufferedReader(new FileReader(direccion));
-        String cadena;
-        String a="";
-        while((cadena=br.readLine())!=null){
-            a=inverse(cadena);
-        }
-        System.out.println(a);
-    }
   
     private static char inv(char c) {
         char aux=c;
@@ -49,6 +43,19 @@ public class REVC {
             j++;
         }
         return String.copyValueOf(r);
+    }
+
+    @Override
+    public DNAReader getReader(InputStream in) {
+        DNAReader reader=new RawDNAReader();
+        reader.Init(in);
+        return reader;
+    }
+
+    @Override
+    public String Solve(DNAReader Origin) throws IOException {
+        String a=Origin.ReadLine();
+        return inverse(a);
     }
     
 }

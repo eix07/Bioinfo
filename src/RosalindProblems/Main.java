@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         GenericProblem problem = null;
         InputStream stream = null;
-        switch (2) {
+        switch (11) {
             case 1:
                 problem = new DNA();
                 stream=new FileInputStream("src/RosalindFiles/rosalind_dna.txt");
@@ -30,28 +30,39 @@ public class Main {
                 stream=new FileInputStream("src/RosalindFiles/rosalind_rna.txt");
                 break;
             case 3:
-                REVC.REVC("src/RosalindFiles/rosalind_revc (1).txt");
+                problem=new REVC();
+                stream=new FileInputStream("src/RosalindFiles/rosalind_revc (1).txt");
                 break;
             case 4:
-                HAM.HAM("src/RosalindFiles/hamm.txt");
+                problem=new HAM();
+                stream=new FileInputStream("src/RosalindFiles/hamm.txt");
                 break;
             case 5:
-                SUBS.SUBS("src/RosalindFiles/subs.txt");
+                problem =new SUBS();
+                stream=new FileInputStream("src/RosalindFiles/subs.txt");
                 break;
             case 6:
-                GC.GC("src/RosalindFiles/rosalind_gc.txt");
+                problem=new GC();
+                stream=new FileInputStream("src/RosalindFiles/rosalind_gc.txt");
                 break;
             case 7:
                 PERM.PERM("src/RosalindFiles/rosalind_perm (1).txt");
                 break;
             case 8:
-                PROT.PROT("src/RosalindFiles/rosalind_prot.txt");
+                problem=new PROT();
+                stream=new FileInputStream("src/RosalindFiles/rosalind_prot.txt");
                 break;
             case 9:
-                SPLC.SPLC("src/RosalindFiles/rosalind_splc.txt");
+                problem=new SPLC();
+                stream=new FileInputStream("src/RosalindFiles/rosalind_splc.txt");
                 break;
             case 10:
-                SSEQ.SSEQ("src/RosalindFiles/rosalind_sseq.txt");
+                problem=new SSEQ();
+                stream=new FileInputStream("src/RosalindFiles/rosalind_sseq.txt");
+                break;
+            case 11:
+                problem=new LCSM();
+                stream=new FileInputStream("src/RosalindFiles/archivo.txt");
                 break;
         }
         String result = problem.Solve(problem.getReader(stream));

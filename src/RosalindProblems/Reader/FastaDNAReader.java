@@ -14,15 +14,14 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author JuanFelipe
+ * @author river
  */
-public class RawDNAReader extends DNAReader {
+public class FastaDNAReader extends DNAReader {
 
     @Override
     public char ReadChar() {
@@ -36,17 +35,37 @@ public class RawDNAReader extends DNAReader {
     }
 
     @Override
-    public String ReadLine() throws IOException {
-        BufferedReader br = new BufferedReader(this.dataOrigin);
-        return br.readLine();
+    public String ReadLine() {
+        try {
+            BufferedReader br = new BufferedReader(this.dataOrigin);
+            return br.readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(FastaDNAReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
-    public List<String> ReadAllLines() {
-        Scanner reader = new Scanner(this.dataOrigin);
-        List<String> lista = new LinkedList<String>();
-        while (reader.hasNext()) {
-            lista.add(reader.nextLine());
+    public List<String> ReadAllLines() throws IOException {
+        BufferedReader br = new BufferedReader(this.dataOrigin);
+        List<String> lista = new LinkedList<>();
+        String cadena = "";
+        String cas = "";
+        while (true) {
+            cadena=br.readLine();
+            if(cadena==null){
+                lista.add(cas);
+                break;
+            }
+            if (cadena.contains(">")) {
+                if (!cas.isEmpty()) {
+                    lista.add(cas.replace("\n", ""));
+                    cas="";
+                }
+                lista.add(cadena.replace(">", ""));
+            } else {
+                cas = cas + cadena;
+            }
         }
         return lista;
     }
@@ -61,7 +80,7 @@ public class RawDNAReader extends DNAReader {
         try {
             return this.dataOrigin.ready();
         } catch (IOException ex) {
-            Logger.getLogger(RawDNAReader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FastaDNAReader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -71,13 +90,12 @@ public class RawDNAReader extends DNAReader {
         try {
             this.dataOrigin.close();
         } catch (IOException ex) {
-            Logger.getLogger(RawDNAReader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FastaDNAReader.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dataOrigin = null;
     }
 
     @Override
-    public HashMap<String,String> HashmapRNAcodon() throws FileNotFoundException, IOException {
+    public HashMap<String,String> HashmapRNAcodon() throws IOException, FileNotFoundException {
         HashMap<String, String> map = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader("src/RosalindFiles/rnaCodon.txt"));
         String cadena = "";
@@ -85,6 +103,7 @@ public class RawDNAReader extends DNAReader {
             String[] sx = cadena.split(" ");
             map.put(sx[0], sx[1]);
         }
-        return map;
+        return map;    
     }
+   
 }

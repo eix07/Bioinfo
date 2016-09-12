@@ -7,6 +7,7 @@ package RosalindProblems;
 
 import RosalindProblems.Reader.DNAReader;
 import RosalindProblems.Reader.RawDNAReader;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,7 +25,7 @@ public class RNA extends GenericProblem {
     }
 
     @Override
-    public String Solve(DNAReader Origin) {
+    public String Solve(DNAReader Origin) throws IOException {
         String cadena=Origin.ReadLine();
         String a = "";
             a = aadn.translate.toARN(cadena);
