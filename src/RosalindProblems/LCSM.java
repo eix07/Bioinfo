@@ -7,14 +7,15 @@ package RosalindProblems;
 
 import RosalindProblems.Reader.DNAReader;
 import RosalindProblems.Reader.FastaDNAReader;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- *
  * @author river
  */
 public class LCSM extends GenericProblem {
@@ -29,47 +30,48 @@ public class LCSM extends GenericProblem {
     @Override
     public String Solve(DNAReader Origin) throws IOException {
         List<String> cadenas = Origin.ReadAllLines();
-        String result="";
-        for (int i = 3; i < cadenas.size(); i++) {
-            String temp="";
-            if(i==3){
-                
-            }
+        List<String> ADN = new ArrayList<>();
+        for (int i = 1; i < cadenas.size(); i++) {
+            ADN.add(cadenas.get(i));
             i++;
         }
-        return null;
+        String result = identifyCommonSub(ADN);
+
+        return result;
     }
 
-    public static int find(char[] A, char[] B) {
-        int[][] LCS = new int[A.length + 1][B.length + 1];
-        // if A is null then LCS of A, B =0
-        for (int i = 0; i <= B.length; i++) {
-            LCS[0][i] = 0;
-        }
+    public String identifyCommonSub(List<String> strArr) {
 
-        // if B is null then LCS of A, B =0
-        for (int i = 0; i <= A.length; i++) {
-            LCS[i][0] = 0;
-        }
+        String commonStr = "";
+        String smallStr = "";
 
-        //fill the rest of the matrix
-        for (int i = 1; i <= A.length; i++) {
-            for (int j = 1; j <= B.length; j++) {
-                if (A[i - 1] == B[j - 1]) {
-                    LCS[i][j] = LCS[i - 1][j - 1] + 1;
-                } else {
-                    LCS[i][j] = 0;
-                }
+        //identify smallest String
+        for (String s : strArr) {
+            if (smallStr.length() < s.length()) {
+                smallStr = s;
             }
         }
-        int result = -1;
-        for (int i = 0; i <= A.length; i++) {
-            for (int j = 0; j <= B.length; j++) {
-                if (result < LCS[i][j]) {
-                    result = LCS[i][j];
+        String tempCom = "";
+        char[] smallStrChars = smallStr.toCharArray();
+        for (char c : smallStrChars) {
+            tempCom += c;
+            for (String s : strArr) {
+                if (!s.contains(tempCom)) {
+                    tempCom += c;
+                    for (String k : strArr) {
+                        if (!k.contains(tempCom)) {
+                            tempCom = "";
+                            break;
+                        }
+                    }
+                    break;
                 }
             }
+            if (tempCom != "" && tempCom.length() > commonStr.length()) {
+                commonStr = tempCom;
+            }
         }
-        return result;
+
+        return commonStr;
     }
 }

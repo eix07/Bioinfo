@@ -7,7 +7,7 @@ package RosalindProblems;
 
 /**
  *
- * @author Labing
+ * @author Miguel
  */
 import RosalindProblems.Writer.Writer;
 import java.io.FileInputStream;
@@ -62,7 +62,7 @@ public class Main {
                 break;
             case 11:
                 problem=new LCSM();
-                stream=new FileInputStream("src/RosalindFiles/archivo.txt");
+                stream = new FileInputStream("src/RosalindFiles/rosalind_lcsm.txt");
                 break;
         }
         String result = problem.Solve(problem.getReader(stream));
