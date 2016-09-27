@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         GenericProblem problem = null;
         InputStream stream = null;
-        switch (11) {
+        switch (12) {
             case 1:
                 problem = new DNA();
                 stream=new FileInputStream("src/RosalindFiles/rosalind_dna.txt");
@@ -63,6 +63,11 @@ public class Main {
             case 11:
                 problem=new LCSM();
                 stream = new FileInputStream("src/RosalindFiles/rosalind_lcsm.txt");
+                break;
+            //matrices para alinear cadeanas!!!!!!!! ------>
+            case 12:
+                problem=new Exercise();
+                stream=new FileInputStream("src/RosalindFiles/alinear.txt");
                 break;
         }
         String result = problem.Solve(problem.getReader(stream));

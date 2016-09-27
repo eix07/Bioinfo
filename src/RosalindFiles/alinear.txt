@@ -1,0 +1,3 @@
+AAGT
+AGCT
+true
