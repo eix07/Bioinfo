@@ -42,7 +42,7 @@ public class Exercise extends GenericProblem {
         algo[0][0] = 0;
 
         algo = llenarArreglo(algo.length);
-        
+
         for (int i = 1; i < algo.length; i++) {
             for (int j = 1; j < algo.length; j++) {
                 int a = 0;
@@ -56,12 +56,16 @@ public class Exercise extends GenericProblem {
             }
         }
 
-        alinearLocal(algo, cadena1, cadena2);
+        if (isLocal) {
+            imprimirTabla(algo);
+            alinearLocal(algo, cadena1, cadena2);
+            return result;
+        } else {
+            imprimirTabla(algo);
+            String[]x=alinear(algo, cadena2, cadena1);
+            return(x[0]+"\n"+x[1]);
+        }
 
-        imprimirTabla(algo);
-        
-        return result;
-        
     }
 
     private void CargarTabla() {
@@ -196,6 +200,7 @@ public class Exercise extends GenericProblem {
                 }
                 i++;
             }
+            
         } catch (IndexOutOfBoundsException e) {
             //e.printStackTrace();
         }
